@@ -6,6 +6,7 @@ title: test title
 <p> This is the index page</p>
 <p>My Post List</p>
 <ul>
-{% endfor post in site.posts %}
+{% for post in site.posts %}
     <li><a href="{{ site.baseurl}}{{post.url}}">{{post.title}}</a></li>  
+{% endfor %}
 </ul>
