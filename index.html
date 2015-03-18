@@ -3,8 +3,9 @@ layout: default
 title: test title
 ---
 <h1> Hello,World</h1>
+<p> This is the index page</p>
 <p>My Post List</p>
 <ul>
-{ % for post in site.posts %}
+{% for post in site.posts %}
     <li><a href="{{ site.baseurl}}{{post.url}}">{{post.title}}</a></li>  
 </ul>
