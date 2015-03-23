@@ -17,7 +17,7 @@ keywords: vector Greedy
 > 股票买法，低买高卖，把所有正价的差价加起来。
 
 ###代码
-{% highlight C %}
+<pre name="colorcode" class="js">
 class Solution {
 public:
     int maxProfit(vector<int> &prices) {
@@ -32,4 +32,4 @@ public:
         return sumProfit;  
     }
 }; 
-{% endhighlight %}
+</pre>
