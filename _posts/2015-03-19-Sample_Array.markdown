@@ -22,7 +22,7 @@ keywords: array, XOR
  
 ### 代码
 
-{% highlight C++ %}
+<pre name="colorcode" class="js">
 class Solution {
 public:
  int singleNumber(int A[], int n) {
@@ -32,7 +32,6 @@ public:
         return x;
   }
 };
-
-{% endhighlight %}
+</pre>
 
 来源： <https://leetcode.com/problems/single-number/>
