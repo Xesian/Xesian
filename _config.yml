@@ -38,6 +38,11 @@ paginate_path: /page:num
 timezone:      null
 auto:          true
 
+
+#站点统计
+ analytics :
+    provider : custom
+
 #站点基础配置
 title: Xesin
 subTitle: A World I Explore.
