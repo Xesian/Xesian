@@ -463,11 +463,11 @@ a:hover {
     border-right: 3px solid #0088cc;
     border-radius: 0 3px 3px 0;
     text-align: left;
-    color: #8d8d8d;
+    color: #212223;
     font-style: italic;
 }
 .main-article blockquote p {
-    color: #8d8d8d;
+    color: #212223;
 }
 .main-article img {
     margin: 20px 0 24px 0;
