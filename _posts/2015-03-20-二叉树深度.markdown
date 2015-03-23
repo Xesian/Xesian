@@ -1,0 +1,38 @@
+---
+layout:         post
+title:          二叉树深度
+description:    求二叉树深度。
+keywords: Binary Tree, Depth First Search(DFS)
+---
+
+## 二叉树深度
+
+### 描述
+  > Given a binary tree, find its maximum depth.
+   The maximum depth is the number of nodes along the longest
+    path from the root node down to the farthest leaf node.
+     
+### 分析
+   > 分别递归遍历二叉树的左分支和有分支，之后用max函数选出分支深度最大的分支,即是二叉树的最大分支。
+   
+### 代码
+ {% highlight C++ %}
+ /**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int maxDepth(TreeNode *root) {
+        if(root==nullptr)
+          return 0;
+        return max(maxDepth(root->left),maxDepth(root->right))+1;
+    }
+};
+
+{% endhighlight %}
