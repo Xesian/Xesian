@@ -1,0 +1,243 @@
+---
+layout:         post
+title:          思科路由学习笔记1
+description:    思科路由的基础操作
+keywords: Cisco Router,Cisco IOS
+---
+### 1、ISO界面用户
+> 思科IOS(Internetwork Operating System),是思科路由器和大部分交换机的内核。
+
+#### 1.1 思科路由器IOS
+> 思科ISO是一个专用内核,提供路由选择、交换、网络互联和远程通信功能。
+
+###### 思科IOS提供的功能
++ 运行网络协议并提供功能；
++ 在设备之间高速传递数据；
++ 控制访问和禁止未经授权的网络使用，提高安全性；
++ 提供可扩展性和冗余性；
++ 提供连接网络资源的可靠性。
+
+#### 1.2 连接思科路由器
+###### 可以通过下面几种方式连接到思科路由器
+
++ 连接控制台端口，通过一个RJ45接头；
++ 通过辅助端口(auxiliary port)；
++ 用Telnet程序。
+
+####1.3 启动路由器
+> 启动的流程如下：加电自检(POST:power on self test)---->在闪存中查找思科IOS---->
+如找到，将它加载到内存(RAM)中。
+
+> IOS 加载后，它将寻找有效配置(启动配置),这种配置存储在非易失RAM(NVRAM)中。如果NVRAM中没有配置，路由器将发送广播,向TFTP主机请求有效配置。如果请求失败,将进入设置模式---一个循序渐进的过程。
+
+>![启动图片](http://7xibm4.com1.z0.glb.clouddn.com/images/cisco2015-03-29_10-37-19.png)
+
+
+### 2、命令行界面(CLI)
+> 称作Cash Line Interface
+
+####2.1进入CLI
+> 一开始进入的是路由器的用户模式，这个模式只能查看路由器的一些配置信息。
+
+>只有在特权模式下才能查看并修改Cisco 路由器的配置。
+
+>通过输入enable或者en缩写命令就可以进入。输入disable 可以退出特权模式。特权模式有个#标识。
+
+>退出控制台：logout
+
+####2.2路由器模式概述
+> 在特权模式下,可以输入config terminal(缩写 config t)进入全局配置模式。这个模式只需设置一次，它影响整台路由器。
+
+#### 2.3 CLI提示符
+
+###### 接口
+> 要修改接口配置，在全局模式(config t)执行命令interface(int).提示符变成(config-if)#
+
+###### 子接口
+> 子接口允许在路由器中创建逻辑接口。提示符变成(config-subif)#
+ 
+###### line 命令
+> line 命令用于配置用户模式密码。执行该命令后,提示符将变成Router(config-line)#:
+
+######配置路由选择协议
+> router 路由协议。例如 router rip
+
+####2.4 编辑和帮助功能
+
+> 利用 ? 可以查询获得帮助信息。
+
+
+>一些高级编辑功能如下：(只摘取一部分)
+
+|   命令   |  含义      |
+|:-------:|:--------:|
+|Ctrl +A  |将光标移到行首|
+|Ctrl +E  |将光标移到行尾|
+|Ctrl +B  |将光标左移一个字符|
+|Ctrl +F  |将光标右移一个字符|
+|Ctrl +Z  |退出配置模式，返回到EXEC模式|
+
+#### 2.5 收集基本的路由信息
+
+> show version 显示系统的硬件信息的基本配置以及软件的版本和启动映象。
+
+> show interface 和show interface brief 用于验证路由器配置和网络故障。
+
+
+
+
+### 3、交换机和路由器的管理配置
+> 在交换机和路由器上，可配置的管理功能如下:
+
++ 主机名:hostname
++ 旗标:banner
++ 密码:enable password、enable secret  
++ 接口描述:description
+
+#### 3.1 主机名
+> 进入配置模式 config t 
+> hostname 主机名
+
+#### 3.2 旗标
+> 旗标用于给试图通过远程登录或拨号连接你的互联网络的人发出的安全警告。
+
+> 有四种类型的旗标:EXEX进程创建旗标(exec process creation banner)、入站终端线路旗标(incoming terminal line banner)、登录旗标(login)和每日消息旗标(Message of the day ,motd)。
+
+> 命令：banner motd # 要通知的消息 #(#可改成任意符合，但是要前后对应)。
+
+> 禁用旗标：no banner motd(login ...)。
+
+####3.3 设置密码
+> 思科路由器有5种密码：控制台密码、辅助端口密码、远程登录密码(VTY)、启用密码(enable)和启用加密密码(enable secret)。
+
+###### 启用密码
+> 在全局配置模式下设置启用密码。
+
++ enable password :在10.3之前的老系统设置启用密码，如果设置了加密密码，该密码不管用。
++ enable secret :新的加密密码，用md5加密，如设置该密码，将优先于启用密码。
++ line aux/console/vty:分别进入辅助端口、控制台、telnet密码配置界面。
+
+> 要配置用户模式的密码，可配置相应的线路，并使用login命令让路由器进行身份验证。
+
+###### 辅助端口密码
++ 命令:line aux ?:查看有几个端口可配置 
++ login:进行身份认证。
++ password:设置密码。设置完密码后要输入**login**，否则辅助端口不进行身份验证。
+
+###### 控制台端口密码
++ line console ?:查看可配置的控制台端口
++ password:设置密码，设置完密码后要输入**login**。
++ login:进行身份验证
++ exec-timeout 0:将控制台会话超时设置为0，即永不超时。
++ logging synchronous:可避免不断出现控制台消息影响你输入。
+
+###### Telnet密码
++ line vty ?：
++ password:设置密码。
++ login:开启身份验证。
++ no login:在路由器没有设置密码也能也允许建立telnet连接。
+
+###### 设置安全外壳(SSH)
+>步骤如下：
+
+>>1. 设置主机名：hostname xx
+2. 设置域名: ip domain-name xx (为生成加密密钥，必须有用户名和域名)
+3. 将用户名设置成支持SSH客户端接入：username xx password xx
+4. 生成用于保护会话的密钥：crypto key generate rsa general-keys moduls ?
+5. 在路由器启用SSH第二版(并非需要，但这个安全性更好):ssh version 2
+6. 进入路由器vty线路配置模式:line vty 0 ?
+7. 最后，依次指定将SSH和Telnet作为接入协议：transport input ssh telnet(若不加入telnet,则路由器只支持ssh接入)。
+
+
+
+
+
+####3.4 对密码进行加密
+
+> 默认情况下，只用加密密码是加密的，若要对用户模式密码和启用密码进行加密，必须手工进行配置。
+
+> 手工配置实用命令：service password-encryption 
+
+> 取消:no service password-encryption
+
+>注意：如果设置并启用命令service password-enctyption,必须在禁用加密服务前执行命令show running-config,否则密码不会被加密。
+
+####描述
+> 设置接口描述给管理员带来很大方便。
+
+> description:description This is a link to Seatle
+
+> 实用do 命令
+
+>> 从IOS12.3起，思科添加do命令。这样就可以在配置模式下查看配置和统计信息。如:do sh run
+
+### 4、路由器接口
+####4.1 启用接口
+> 
++ 禁用接口:shutdown
++ 启用接口: no shutdown
+
+###### 给接口配置ip地址
+> ip address xx.xx.xx.xx(Ip地址码)  255.255.255.0(掩码)(在接口启用IP处理功能)
+
+>添加辅助IP地址：ip address address mask **secondary**(不建议这么做)
+
+###### 实用管道
+ > 此管道非管道，而是输出限定符。它可以让我们在配置或其他冗长输出中迅速找到目标。
+ 
+ > sh run | ?
+ 
+ 
+###### 配置串行接口的命令
+ > 我们通常实用串行接口连接CSU/DSU设备，这种设备为路由器线路提供时钟频率。
+ 
+ > CSU:Channel Service Unit,通道服务单元。把终端用户和本地数字电话环路相连的数字接口设备。
+ 
+ > DSU:Data Service Unit,数据传输单元。
+ 
+ > 默认情况下，思科路由器的串行接口都是DTE(Date Terminal Equipment,数字终端设备)，这意味着如果想要接口充当DCE设备，必须对其进行配置，并提供时钟频率。
+ 
+ > 使用命令 clock rate 配置DCE串行接口时钟频率。
+ 
+ 
+ > bandwidth 配置串行接口的带宽。
+ 
+ 
+ 
+### 5、查看、配置和删除配置
+
+> 手工将DRAM(简称RAM)的配置文件复制并保存到NVRAM中，可使用 copy run-config startup-config (简写：copy run start)
+
+> 查看配置信息:show run-config/startup-config (简写：sh run/start)
+
+####删除配置及重启路由器
+> 删除配置命令: erase startup-config
+
+> 不应该使用设置模式配置路由器，要用CLI 来配置路由器。
+
+> 重启：reload
+
+#### 5.2验证配置
+> 验证 **当前** 配置方式：show run-config (sh run)
+
+> 验证 **下次重启** 时使用的配置:show startup-config (sh start)
+
+###### 使用命令show interface 进行验证
+> show interface 显示路由器上所有接口的可配置参数和统计信息。它显示的最重要的统计信息是线路协议和数据链路的状态。
++ up + up: 说明接口运行正常(第一个指物理层，第二个指数据链路层)。
++ up + down:说明存在存活或者成帧方面的问题，可能是封装不匹配。
++ down +down :表明接口或者电缆出问题。
++ administratively down + down:一段被管理性关闭，远程线路接口和协议都处于down 状态。
+
+###### 使用命令show ip interface 进行验证。
+> 使用show ip interface 显示路由器接口的第三层配置信息。
+>> 输出信息包括:接口的状态、接口的IP和子网掩码、在接口上是否设置访问列表以及基本的IP信息。
+
+###### 使用命令show ip interface brief
+> 提供路由器接口的摘要信息。
+
+###### 使用命令show protocols进行验证。
+> 可以快速了解每个接口的第一层和第二层的状态以及使用的IP地址。
+
+###### 使用show controllers 
+> 显示有关物理接口本身的信息。除此之外，还指出串行端口连接的串行电缆的类型。
