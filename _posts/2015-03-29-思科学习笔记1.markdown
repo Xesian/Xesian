@@ -153,13 +153,13 @@ keywords: Cisco Router,Cisco IOS
 
   步骤如下：
   
-  1. 设置主机名：hostname xx
-  2. 设置域名: ip domain-name xx (为生成加密密钥，必须有用户名和域名)
-  3. 将用户名设置成支持SSH客户端接入：username xx password xx
-  4. 生成用于保护会话的密钥：crypto key generate rsa general-keys moduls ?
-  5. 在路由器启用SSH第二版(并非需要，但这个安全性更好):ssh version 2
-  6. 进入路由器vty线路配置模式:line vty 0 ?
-  7. 最后，依次指定将SSH和Telnet作为接入协议：transport input ssh telnet(若不加入telnet,则路由器只支持ssh接入)。
+  + 设置主机名：hostname xx
+  + 设置域名: ip domain-name xx (为生成加密密钥，必须有用户名和域名)
+  + 将用户名设置成支持SSH客户端接入：username xx password xx
+  + 生成用于保护会话的密钥：crypto key generate rsa general-keys moduls ?
+  + 在路由器启用SSH第二版(并非需要，但这个安全性更好):ssh version 2
+  + 进入路由器vty线路配置模式:line vty 0 ?
+  + 最后，依次指定将SSH和Telnet作为接入协议：transport input ssh telnet(若不加入telnet,则路由器只支持ssh接入)。
 
 #### 3.4 对密码进行加密
 
@@ -195,8 +195,7 @@ keywords: Cisco Router,Cisco IOS
 
 ##### 实用管道
   此管道非管道，而是输出限定符。它可以让我们在配置或其他冗长输出中迅速找到目标。
- 
-  sh run "|" ? 
+  PS:我的cisco packet tracer 居然无法用管道命令，醉了。
  
 ##### 配置串行接口的命令
 
