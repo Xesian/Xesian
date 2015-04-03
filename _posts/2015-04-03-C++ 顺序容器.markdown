@@ -1,0 +1,184 @@
+---
+layout:       post
+title:        C++  顺序容器 学习
+description:    C++学习笔记
+keywords: C++ 容器
+---
+### 一 顺序容器概述
+#####  概述
+
+ |    容器 |         描述           |
+ |:----:|:---:|
+ |vector|可变数组大小。支持快速随机访问。在尾部<strong>之外</strong>的位置插入或删除  元素很慢|
+ |deque|双端队列。支持快速随机访问。在头部或尾部插入/删除速度很快|
+ |list|双向链表。只支持<strong>双向顺序访问</strong>。在list中任何位置插入/删除速度很快|
+ |forward_list|单向列表。只支持<strong>单向顺序访问</strong>。在链表任何位置插入或者删除操作很快。|
+ |array|固定数组大小。支持快速随机访问。不能添加或删除元素。
+ |string|与vector相似的容器，但专门用于保存字符。随机访问快。在尾部插入/删除速度快|
+ 
+ #####  确定使用哪种类型的容器
+    Tips:通常，使用vector是最好的选择，除非你有更好的理由选择其他容器。
+
+### 二 容器库概览
+      
+    一般来说，每个容器都定义在一个头文件中，文件名和类型名相同。比如deque定义在<deque>中，list定义在<list>中。
+    此外，顺序容器几乎可以保存任意类型的元素。特别是一个容器的元素是另外一个容器。
+    
+
+##### 类型别名
+
+| 类型   |  描述  |
+|:-----:|:-----:|
+|value_type|元素类型|
+|iterator|此容器类型的迭代器类型|
+|const_iterator|可以读取元素，但不能修改元素的迭代器类型|
+|size_type|无符号整形数，足够保存此种容器类型最大可能容器的大小|
+|difference_type|带符号整形，足够保存<strong>两个迭代器</strong>之间的距离|
+|reference|元素左值类型;与value_type&含义相同|
+|const_reference|元素的const左值，即const value_type & |
+
+##### 构造函数
+
+|格式|说明|
+|:---:|:---:|
+|C c;|默认构造函数，构造空容器|
+|C c1(c2);|用c2来构造c1(拷贝构造函数)|
+|C c(b,e);)|将迭代器b和e指定范围内的元素拷贝到c|
+|C c{a,b,c}|初始化列表c|
+
+##### 赋值与swap
+
+| 格式|说明|
+|:---:|:----:|
+|c1=c2|将c1中的元素替换为c2中的元素|
+|c1={a,b,c}|将c1中的元素替换为列表中的元素(array不适用)|
+|a.swap(b)|交换a和b的元素|
+|swap(a,b)|与a.swap(b)等价|
+
+
+##### 大小
+|格式|说明|
+|:------:|:------:|
+|c.size()|c中元素的数目(不支持forward_list)|
+|c.max_size()|c可保存的最大元素数目|
+|c.empty()|若c中有存储元素，返回false，否则true|
+
+##### 添加/删除元素(不适合array)
+
+*注：不同的容器中接口操作接口都不同 *
+
+|  格式  |  说明  |
+|:---:|:----:|
+|c.insert(args)|将args中的元素<strong>拷贝</strong>进c|
+|c.emplace(inits)|使用inits<strong>构造</strong>c中的一个元素|
+|c.erase(args)|删除args指定的要元素|
+|c.clear()|删除c中的所有元素，返回void|
+
+##### 关系运算符
+
+|  格式  |  说明  |
+|:---:|:----:|
+|==，！=|所有容器都支持|
+|<,>,<=,>=|关系运算符，无序容器不支持|
+
+##### 获取迭代器
+
+|  格式  |  说明  |
+|:---:|:----:   |
+|c.begin(),c.end()|返回指向c的首元素和尾元素<strong>之后</strong>的迭代器|
+|c.cbegin(),c.cend()|返回 const_iterator|
+
+##### 反向迭代器的额外成员
+|  格式  |  说明  |
+|:---:|:----:|
+|reverse_iterator|按逆序寻址元素的迭代器|
+|const_reverse_iterator|不能修改元素的逆迭代器|
+|c.rbegin(),c.rend()|返回指向c的尾元素和首元素<strong>之前</strong>的迭代器|
+|c.crbegin(),c.crend()|返回const_reverse_iterator|
+
+### 三 顺序容器操作
+##### 向顺序容器添加元素
+
+*注：*
+
+ * 这些操作会改变容器的大小；array不支持这些操作
+
+ * forward_list有自己专属版本insert和emplace
+
+ * forward_list 不支持push_back和emplace_back;
+ * vector 和string不支持push_front和emplace_front
+ 
+|  操作  |  说明  |
+|:---:|:----:|
+|c.push_back(t)|在c的尾部创建一个值为t的元素，返回void|
+|c.emplace_back(args)|同push_back,只是创建的时候使用的是构造函数的方法|
+|c.push_front(t)|在c的头部创建一个值为t的元素，返回void|
+|c.emplace_front(args)|同push_front,使用的是构造函数|
+|c.insert(p,t)|在迭代器p指向的元素<strong>之前</strong>创建一个值为t的元素或由agrs创建的元素|
+|c.emplace(p,args)|同insert|
+|c.insert(p,n,t)|在迭代器p指向的元素之前插入n个值为t的元素；返回指向新添加的第一个元素的迭代器；若n为0，返回P|
+|c.insert(p,b,e)|将迭代器b和e指定的范围内的元素插入到迭代器p指向的元素之前，b和e不能指向c，返回指向新添加的第一个元素的迭代器；若范围为空，返回p|
+|c.insert(p,il)|il是一个用花括号包围的元素值列表，将这些给定值插入到迭代器p指向的元素之前。返回指向新添加的第一个元素的迭代器；若列表为空，返回p|
+
+##### 访问元素
+*注：*
+* at和下标操作只适用于string，vector，deque和array
+* back不适合用户forward_list
+* 访问成员函数返回的都是**引用**
+
+|  操作  |  说明  |
+|:---:|:----:|
+|c.back()|返回c中尾元素的<strong>引用</strong>。若c为空，则函数行为**未定义**|
+|c.front|返回c中首元素的**引用**,若c为空，函数行为**未定义**|
+|c[n]|返回c中下表为n的元素的**引用**，n是一个无符号整形。若n>c.sixe()，则函数行为未定义|
+|c.at(n)|返回下表为n的元素的引用，若下表越界，则抛出out_of_range的异常|
+
+
+**警告**：对一个空容器调用fronth或back是一种严重的程序设计错误。
+
+
+##### 删除元素
+*注：*
++ 这些操作会改变容器的大小，所以不适合array。
++ forward_list 有特殊版本的erase。
++ forward_list 不支持pop_back;vector和string不支持pop_front。
+
+|  操作  |  说明  |
+|:---:|:----:|
+|c.pop_back()|删除c中尾元素，若c为空，则函数行为未定义，返回void。|
+|c.pop_front()|删除c中首元素。若c为空，则函数行为未定义返回void。|
+|c.erase(p)|删除迭代器p所指定的元素，返回一个指向被删除元素之后的迭代器，若P指向尾元素，则返回尾后(off the end)迭代器。若p是尾后迭代器，则函数行为未定义|
+|c.erase(b,e)|删除迭代器b和e所指定范围内的元素。返回一个指向**最后一个被删除**元素**之后**的元素迭代器，若e本身就是尾后迭代器，则函数也返回尾后迭代器|
+|c.clear()|删除c中的所有元素。返回void|
+
+###### WARNING
++ 删除deque中除首尾位置之外的任何元素都会使所有迭代器、引用。指针失效。指向vector或者string中删除点之后位置的迭代器。引用和指针都会失效。
++ 删除元素的成员函数**并不检查其参数**，在删除元素之前，程序员必须**确保他们是存在**的。
+
+##### 特殊的forward_list 操作
+在forward_list中插入或删除的操作
+
+|  操作  |  说明  |
+|:---:  |  :----:|
+|lst.before_begin()|返回指向链表首元素**之前不存在**的元素迭代器。此迭代器不能解引用。|
+|lst.cbefore_begin()|返回一个const_iterator|
+|lst.insert_after(p,t)|在迭代器p**之后**的位置插入元素t|
+|lst.insert_after(p,n,t)|在迭代器p之后插入**n个t**对象|
+|lst.insert_after(p,b,e)|b和e是表示范围的一对迭代器(b和e不能指向lst内)。|
+|lst.insert_after(p.il)|il是一个花括号列表。|
+|lst.insert_after总结|返回一个指向最后一个插入元素的迭代器。如果范围为空，则返回p。若p为尾后迭代器，则函数行为未定义|
+|emplace_after(p,args)|使用args在p指定的位置之后创建一个元素。返回一个指向这个新元素的迭代器。若p为尾后迭代器，则函数行为未定义。|
+|lst.erase_after(p) lst.erase_after(b,e)|删除p指向的位置之后的元素或者删除从b之后直到(但不包含)e之间的元素。返回一个指向被删除元素之后元素的迭代器，若不存在这样的元素，则返回尾后迭代器。如果p指向尾元素或者是一个尾后迭代器，则函数行为未定义|
+
+
+##### 改变容器的大小
+
+顺序容器大小的操作
+
+|  操作  |  说明  |
+|:-----:|:------:|
+|c.resize(n)|调整c的大小为n。如果n<c.size(),则多出的元素被丢弃。若必须添加新元素，对新元素进行初始化。|
+|c.reseze(n,t)|调整c的大小为n个元素。任何新添加的元素都初始化为值t|
+
+###### WARNING
++ 如果resize缩小容器，则指向被删除元素的迭代器，引用，指针都会失效；对vector、string、或deque进行resize可能导致迭代器，引用，指针失效。
