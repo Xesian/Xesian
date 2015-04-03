@@ -184,7 +184,7 @@ keywords: C++ 容器
 
 + 示例代码:
 
-```
+<pre name="colorcode" class="js">
 #include<iostream>
 #include<forward_list>
 using namespace std;
@@ -198,7 +198,7 @@ int main()
         if(*cur%2)//如果是奇数
         {
             cout<<"value of deleting:"<<*cur<<endl;
-            cur=flist.erase_after(prev);//删除该元素，重点是P
+            cur=flist.erase_after(prev);//删除该元素，重点是prev
         }
         else//偶数
         {
@@ -208,8 +208,7 @@ int main()
     }
     return 0;
 }
-
-```
+</pre>
 
 ##### 改变容器的大小
 
