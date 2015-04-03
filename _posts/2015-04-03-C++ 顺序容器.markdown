@@ -183,7 +183,6 @@ keywords: C++ 容器
 + 当在forward_list中添加或者删除元素时，我们必须关注两个迭代器----一个指向我们要处理的元素，另一个指向其前驱。
 
 + 示例代码:
-
 <pre name="colorcode" class="js">
 #include&lt;iostream>
 #include&lt;forward_list>
@@ -209,7 +208,6 @@ int main()
     return 0;
 }
 </pre>
-
 ##### 改变容器的大小
 
 顺序容器大小的操作
