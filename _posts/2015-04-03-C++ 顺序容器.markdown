@@ -183,31 +183,7 @@ keywords: C++ 容器
 
 + 示例代码:
 
-<pre name="colorcode" class="js">
-#include&lt;iostream>
-#include&lt;forward_list>
-using namespace std;
-int main()
-{
-    forward_list<int> flist={0,1,2,3,4,5,6,7,8,9};//初始化
-    auto cur=flist.begin();//指向第一个元素
-    auto prev=flist.before_begin();//指向第一个元素之前的迭代器
-    while(cur!=flist.end())//每次迭代都要重新计算end指针
-    {
-        if(*cur%2)//如果是奇数
-        {
-            cout<<"value of deleting:"<<*cur<<endl;
-            cur=flist.erase_after(prev);//删除该元素，重点是prev
-        }
-        else//偶数
-        {
-            prev=cur;//向后迭代
-            ++cur;
-        }
-    }
-    return 0;
-}
-</pre>
+![代码图片](http://7xibm4.com1.z0.glb.clouddn.com/images/cisco2015-04-03_21-38-16.png)
 
 #####改变容器的大小
 
@@ -219,4 +195,5 @@ int main()
 |c.reseze(n,t)|调整c的大小为n个元素。任何新添加的元素都初始化为值t|
 
 ######WARNING
+
 + 如果resize缩小容器，则指向被删除元素的迭代器，引用，指针都会失效；对vector、string、或deque进行resize可能导致迭代器，引用，指针失效。
