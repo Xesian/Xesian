@@ -178,15 +178,15 @@ keywords: C++ 容器
 |lst.erase_after(p) lst.erase_after(b,e)|删除p指向的位置之后的元素或者删除从b之后直到(但不包含)e之间的元素。返回一个指向被删除元素之后元素的迭代器，若不存在这样的元素，则返回尾后迭代器。如果p指向尾元素或者是一个尾后迭代器，则函数行为未定义|
 
 
-###### 添加删除注意事项:
+###### 添加删除注意事项
 
 + 当在forward_list中添加或者删除元素时，我们必须关注两个迭代器----一个指向我们要处理的元素，另一个指向其前驱。
 
 + 示例代码:
 
 <pre name="colorcode" class="js">
-#include<iostream>
-#include<forward_list>
+#include&lt;iostream>
+#include&lt;forward_list>
 using namespace std;
 int main()
 {
@@ -210,9 +210,7 @@ int main()
 }
 </pre>
 
-
-
-##### 改变容器的大小
+##### **改变容器的大小**
 
 顺序容器大小的操作
 
