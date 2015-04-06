@@ -245,7 +245,6 @@ keywords: Cisco Router,Cisco IOS
 ##### 使用命令show interface 进行验证
 
 > show interface 显示路由器上所有接口的可配置参数和统计信息。它显示的最重要的统计信息是线路协议和数据链路的状态。
-
 >  + up+up: 说明接口运行正常(第一个指物理层，第二个指数据链路层)。
 + up+down:说明存在存活或者成帧方面的问题，可能是封装不匹配。
 + down+down :表明接口或者电缆出问题。
