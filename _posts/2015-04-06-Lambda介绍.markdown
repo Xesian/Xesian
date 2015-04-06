@@ -27,17 +27,17 @@ keywords: lambda predicate
 
 > 一个lambda表达式具有如下形式:
 
-> [capture list](parameter list)->return type {function body}
+> [capture list]  (parameter list)->return type {function body}
 
->>  capture list:lambda所在函数中定义的局部变量的列表；
-    parameter list:参数列表;
-    return type: 返回类型;
-    function body:函数体。
+>  + capture list:lambda所在函数中定义的局部变量的列表；
+   + parameter list:参数列表;
+   + return type: 返回类型;
+   + function body:函数体。
        
 > 注：我们可以忽略参数列表和返回类型，但必须永远包含捕获列表和函数体。
     如下所示：
 
->> auto f=[]{return 42;};
+> auto f=[]{return 42;};
        
 > 果lambda的函数体包含任何单一return语句之外的内容，且未指定返回类型，则返回void。
        
