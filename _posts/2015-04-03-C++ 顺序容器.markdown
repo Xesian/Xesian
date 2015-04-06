@@ -1,6 +1,6 @@
 ---
 layout:       post
-title:        C++  顺序容器 学习
+title:        C++顺序容器
 description:    C++学习笔记
 keywords: C++ 容器
 ---
@@ -101,6 +101,7 @@ keywords: C++ 容器
 
 > 
 *注：*
+> 
  * 这些操作会改变容器的大小；array不支持这些操作
  * forward_list有自己专属版本insert和emplace
  * forward_list 不支持push_back和emplace_back;
@@ -124,9 +125,11 @@ keywords: C++ 容器
 
 > 
 *注:*
+> 
 * at和下标操作只适用于string，vector，deque和array
 * back不适合用户forward_list
 * 访问成员函数返回的都是**引用**
+
 > 
 |  操作  |  说明  |
 |:---:|:----:|
@@ -142,6 +145,7 @@ keywords: C++ 容器
 
 > 
 *注：*
+> 
 + 这些操作会改变容器的大小，所以不适合array。
 + forward_list 有特殊版本的erase。
 + forward_list 不支持pop_back;vector和string不支持pop_front。
@@ -187,7 +191,9 @@ keywords: C++ 容器
 #####**改变容器的大小**
 
 > 顺序容器大小的操作
-> |  操作  |  说明  |
+
+> 
+|  操作  |  说明  |
 |:-----:|:------:|
 |c.resize(n)|调整c的大小为n。如果n<c.size(),则多出的元素被丢弃。若必须添加新元素，对新元素进行初始化。|
 |c.reseze(n,t)|调整c的大小为n个元素。任何新添加的元素都初始化为值t|
