@@ -22,7 +22,7 @@ keywords: Cisco Router,Cisco IOS
 #### 1.2 连接思科路由器
 
 ##### 可以通过下面几种方式连接到思科路由器
->+ 连接控制台端口，通过一个RJ45接头；
+> + 连接控制台端口，通过一个RJ45接头；
 + 通过辅助端口(auxiliary port)；
 + 用Telnet程序。
 
@@ -105,6 +105,7 @@ keywords: Cisco Router,Cisco IOS
 #### 3.1 主机名
 
 > 进入配置模式 config t 
+
 > hostname 主机名
 
 #### 3.2 旗标
@@ -175,7 +176,7 @@ keywords: Cisco Router,Cisco IOS
   手工配置实用命令：service password-encryption 
   取消:no service password-encryption
 
->   注意：如果设置并启用命令service password-enctyption,必须在禁用加密服务前执行命令show running-config,否则密码不会被加密。
+> 注意：如果设置并启用命令service password-enctyption,必须在禁用加密服务前执行命令show running-config,否则密码不会被加密。
 
 #### 描述
 
@@ -198,37 +199,47 @@ keywords: Cisco Router,Cisco IOS
 ##### 给接口配置ip地址
 
 > ip address xx.xx.xx.xx(Ip地址码)  255.255.255.0(掩码)(在接口启用IP处理功能)
+
 > 添加辅助IP地址：ip address address mask **secondary**(不建议这么做)
 
 ##### 实用管道
 
 > 此管道非管道，而是输出限定符。它可以让我们在配置或其他冗长输出中迅速找到目标。
+
 > PS:我的cisco packet tracer 居然无法用管道命令，醉了。
  
 ##### 配置串行接口的命令
 
 > 我们通常实用串行接口连接CSU/DSU设备，这种设备为路由器线路提供时钟频率。
+
 > CSU:Channel Service Unit,通道服务单元。把终端用户和本地数字电话环路相连的数字接口设备。
+
 > DSU:Data Service Unit,数据传输单元。
    
 > 默认情况下，思科路由器的串行接口都是DTE(Date Terminal Equipment,数字终端设备)，这意味着如果想要接口充当DCE设备，必须对其进行配置，并提供时钟频率。
+
 > 使用命令 clock rate 配置DCE串行接口时钟频率。 
+
 > bandwidth 配置串行接口的带宽。 
  
 ### 5、查看、配置和删除配置
 
 > 手工将DRAM(简称RAM)的配置文件复制并保存到NVRAM中，可使用 copy run-config startup-config (简写：copy run start)
+
 > 查看配置信息:show run-config/startup-config (简写：sh run/start)
 
 #### 删除配置及重启路由器
 
 > 删除配置命令: erase startup-config
+
 > 不应该使用设置模式配置路由器，要用CLI 来配置路由器。
+
 > 重启：reload
 
 #### 5.2验证配置
 
 > 验证 **当前** 配置方式：show run-config (sh run)
+
 > 验证 **下次重启** 时使用的配置:show startup-config (sh start)
 
 ##### 使用命令show interface 进行验证
@@ -244,6 +255,7 @@ keywords: Cisco Router,Cisco IOS
 ##### 使用命令show ip interface 进行验证。
 
 > 使用show ip interface 显示路由器接口的第三层配置信息。
+
 > 输出信息包括:接口的状态、接口的IP和子网掩码、在接口上是否设置访问列表以及基本的IP信息。
 
 ###### 使用命令show ip interface brief
