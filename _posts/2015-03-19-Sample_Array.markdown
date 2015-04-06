@@ -21,7 +21,8 @@ keywords: array, XOR
 > 公式如下: a ⊕ b ⊕ a = b.异或的自反性.
  
 ### 代码
-<pre name="colorcode" class="js">
+
+```
 class Solution {
 public:
  int singleNumber(int A[], int n) {
@@ -31,6 +32,7 @@ public:
         return x;
   }
 };
-</pre>
+
+```
 
 来源： <https://leetcode.com/problems/single-number/>
