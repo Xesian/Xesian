@@ -464,7 +464,7 @@ a:hover {
     border-radius: 0 3px 3px 0;
     text-align: left;
     color: #080809;
-    font-style: italic;
+    font-style: initial;
 }
 .main-article blockquote p {
     color: #080809;
