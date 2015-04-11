@@ -1,7 +1,7 @@
 ---
 layout:         post
 title:          思科路由学习笔记1
-description:    思科路由的基础操作
+description:    思科互联网络操作系统
 keywords: Cisco Router,Cisco IOS
 ---
 ### 1、ISO界面用户
