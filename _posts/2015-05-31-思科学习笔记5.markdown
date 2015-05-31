@@ -124,6 +124,7 @@ keywords: STP
 * EtherChannel
    
    捆绑遵循以下规则：
+   
    * 相同VALN;
    * 端口处于中继模式;
    * 相同的speed和duplex.
