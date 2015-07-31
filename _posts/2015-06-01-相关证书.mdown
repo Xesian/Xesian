@@ -8,6 +8,6 @@ keywords:CET6 CET4 honor
 #### 相关证书如下所示：
 
 <div>
-	<img src="/images/honor/cet6.jpg" width="200" height="300" align="center">
+	<img src="/images/honor/cet6.jpg" width="200" height="300" align="center" style="max-width:100%">
 </div>
 
