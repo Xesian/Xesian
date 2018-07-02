@@ -42,6 +42,7 @@ auto:          true
 title: Xesin
 subTitle: A World I Explore.
 description: 记录自己的成长
+url: xesian.github.io/Xesian/
 feed: /atom.xml
 
 #菜单配置
